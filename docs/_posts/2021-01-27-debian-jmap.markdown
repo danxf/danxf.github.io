@@ -32,7 +32,9 @@ The package has apparently removed from the official Debian repositories.
 The solution would be to add some external repository which hosts the `headless` package. One such repository is the [MXLinux repo](http://mxrepo.com/):
 
 1. Adding the MXLinux repo to the sources list. Create a new file under `/etc/apt/sources.list.d` named `mx.list` and add the following line to it:
-```deb http://mxrepo.com/mx/repo/ buster main non-free```
+```
+deb http://mxrepo.com/mx/repo/ buster main non-free
+```
 2. Updating `apt` will result in:
  ```
  >> apt-get update
