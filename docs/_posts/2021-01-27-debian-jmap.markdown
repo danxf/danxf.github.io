@@ -3,10 +3,16 @@ layout: post
 title:  "Memory dumps and Java debugging tools on Debian"
 date:   2021-01-27 00:02:06 +0200
 ---
+
+Note: This is a generally straight forward description of adding a new package repo and authenticating it, no revelations here. 
+I just wanted to save you the time that I spent looking and constructing a solution (because no complete workaround exists on the web), and write a generic end-to-end process. 
+
+---
+
 The official `openjdk8` Docker image (`FROM openjdk:8-jre`) is built on Debian. This base layer includes a minimal runtime environment for Java 8 applications. When trying to debug a Java application we will sometimes need to extract a Heap memory dump to analyze and debug. This can be done easily using `jmap`:
 
 ```
-jmap -dump:format=b,file=cheap.hprof JAVAPID
+jmap -dump:format=b,file=memdump.hprof JAVAPID
 ```
 Starting from the official `openjdk-8` base image would probably result in:
 
@@ -19,7 +25,7 @@ Indeed, looking at the `$JAVA_HOME` folder reveals that:
 >> ls $JAVA_HOME/bin/
 java  jjs  keytool  orbd  pack200  policytool  rmid  rmiregistry  servertool  tnameserv  unpack200
 ```
-Browsing to the Debian [man pages](https://manpages.debian.org/unstable/openjdk-8-jdk-headless/jmap.1.en.html) reveals that `jmap` is included in the `openjdk-8-jdk-headless` package. But trying to install it results in:
+Browsing to the Debian [man pages](https://manpages.debian.org/unstable/openjdk-8-jdk-headless/jmap.1.en.html) will tel us that `jmap` is included in the `openjdk-8-jdk-headless` package. But trying to install it results in:
 
 ```
 >> apt install openjdk-8-jdk-headless
